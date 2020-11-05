@@ -1,0 +1,6 @@
+---
+# defaults file for openvpn-client
+openvpn_packages:
+    - openvpn
+    - udev
+    - openssl

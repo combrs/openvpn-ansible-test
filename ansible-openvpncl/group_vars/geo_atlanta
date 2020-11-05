@@ -1,0 +1,3 @@
+---
+openvpn_remote: 2.2.2.2
+openvpn_port: 2196

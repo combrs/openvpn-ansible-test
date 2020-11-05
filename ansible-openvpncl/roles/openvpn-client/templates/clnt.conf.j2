@@ -1,0 +1,38 @@
+client
+nobind
+dev tun
+
+log-append /var/log/openvpn/{{ openvpn_name }}.log
+
+remote-cert-tls {{ openvpn_client_remote_cert_tls }}
+
+remote {{ openvpn_remote }} {{ openvpn_port }} {{ openvpn_proto }}
+
+{% if openvpn_client_keepalive is defined %}
+keepalive {{ openvpn_client_keepalive }}
+{% endif %}
+{% if openvpn_key is defined %}
+<key>
+{{ openvpn_key }}
+</key>
+{% endif %}
+{% if openvpn_cert is defined %}
+<cert>
+{{ openvpn_cert }}
+</cert>
+{% endif %}
+{% if openvpn_ca is defined %}
+<ca>
+{{ openvpn_ca }}
+</ca>
+{% endif %}
+{% if openvpn_tlsauth is defined %}
+<tls-auth>
+{{ openvpn_tlsauth }}
+</tls-auth>
+key-direction 1
+{% endif %}
+
+auth-nocache
+comp-lzo
+reneg-sec {{ reneg_sec }}

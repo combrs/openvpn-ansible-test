@@ -1,0 +1,9 @@
+---
+# handlers file for openvpn-client
+
+- name: restart openvpn
+  become: true
+  service:
+    name: "{{ openvpn_service }}@{{ openvpn_name }}"
+    state: restarted
+    enabled: true

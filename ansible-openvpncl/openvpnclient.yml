@@ -1,0 +1,20 @@
+---
+- hosts: all
+  tasks:
+    - name: Different distros have different config paths
+      group_by:
+        key: osver_{{ ansible_facts['distribution_version'].replace('.', '_')  }}
+    - name: Get in group by hostname
+      group_by:
+        key: geo_{{ ansible_facts['nodename'].split('-')[1] }}
+
+- hosts: openvpn
+#  tasks:
+#- name: Display all variables/facts known for a host
+#  debug:
+#    var: hostvars[inventory_hostname]
+ # tags: debug_info
+
+  roles:
+    - openvpn-client
+

@@ -1,0 +1,3 @@
+---
+openvpn_dest_path: /etc/openvpn/client/{{ openvpn_name }}.conf
+openvpn_service: openvpn-client

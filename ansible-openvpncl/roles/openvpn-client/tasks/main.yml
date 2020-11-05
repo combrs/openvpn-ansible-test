@@ -1,0 +1,34 @@
+---
+# tasks file for openvpn-client
+- name: Install Openvpn
+  package:
+    state: present
+    name: "{{ item }}"
+  with_items: "{{ openvpn_packages }}"
+
+- name: Create OpenVPN config file
+  template:
+    src: clnt.conf.j2
+    dest: "{{ openvpn_dest_path }}"
+    mode: 0640
+  notify: restart openvpn
+
+- name: Enable OpenVPN autostart.
+  lineinfile:
+    path: /etc/default/openvpn
+    regexp: '^AUTOSTART='
+    line: 'AUTOSTART="{{ openvpn_name }}"'
+  notify: restart openvpn
+
+- name: Create openvpn direcory for Ubuntu 16.04
+  file:
+    path: /var/log/openvpn
+    state: directory
+    mode: '0755'
+  when: ansible_facts['distribution_version'] == '16.04'
+
+- name: start openvpn
+  service:
+    name: "{{ openvpn_service }}@{{ openvpn_name }}"
+    state: started
+    enabled: true

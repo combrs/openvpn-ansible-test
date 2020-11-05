@@ -1,0 +1,9 @@
+---
+openvpn_key: "{{ lookup('file','files/key.crt') }}"
+openvpn_cert: "{{ lookup('file','files/cert.crt') }}"
+openvpn_ca: "{{ lookup('file','files/ca.crt') }}"
+openvpn_tlsauth: "{{ lookup('file','files/tls-auth.key') }}"
+openvpn_name: openvpn
+openvpn_proto: udp
+openvpn_client_remote_cert_tls: server
+reneg_sec: 259200
